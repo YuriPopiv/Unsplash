@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.example.yura9.testteamvoy.MainActivity">
+    <item android:id="@+id/latest"
+          android:title="@string/item_latest"
+          app:showAsAction="never"></item>
+
+    <item android:id="@+id/oldest"
+          android:title="@string/item_oldest"
+          app:showAsAction="never"></item>
+
+    <item android:id="@+id/popular"
+          android:title="@string/item_popular"
+          app:showAsAction="never"></item>
+
+    <item
+        android:id="@+id/random"
+        android:title="@string/item_random"
+        ></item>
+</menu>
