@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TestTeamvoy</string>
+    <string name="app_name">Unsplash</string>
     <string name="action_settings">Settings</string>
     <string name="item_latest">Latest</string>
     <string name="item_oldest">Oldest</string>

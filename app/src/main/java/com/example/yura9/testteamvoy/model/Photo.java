@@ -1,5 +1,6 @@
 package com.example.yura9.testteamvoy.model;
 
+import com.bumptech.glide.load.resource.SimpleResource;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -39,6 +40,18 @@ public class Photo {
     @SerializedName("links")
     @Expose
     private Links links;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @SerializedName("user")
+    @Expose
+    private User user;
 
     public String getId() {
         return id;

@@ -8,8 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -34,8 +36,8 @@ public class PhotoFragment  extends Fragment{
     private PhotoService service;
 
     public ImageView photoFull;
-    public ImageButton buttonUp;
-    public ImageButton buttonDown;
+    private TextView author;
+    public Button button;
     private Photo mPhoto;
 
     @Override
@@ -57,8 +59,10 @@ public class PhotoFragment  extends Fragment{
         //((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
         photoFull = (ImageView) v.findViewById(R.id.photoFull);
-        buttonUp = (ImageButton) v.findViewById(R.id.buttonUp);
-        buttonDown = (ImageButton) v.findViewById(R.id.buttondown);
+        button = (Button) v.findViewById(R.id.button);
+        author = (TextView) v.findViewById(R.id.author);
+
+        author.setText(mPhoto.getUser().getName());
 
         Glide.with(getActivity()).load(mPhoto.getUrls().getRegular()).into(photoFull);
 
@@ -69,27 +73,24 @@ public class PhotoFragment  extends Fragment{
                 .build();
 
         service = retrofit.create(PhotoService.class);
-        buttonUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                if (mPhoto.getLikedByUser() != false){
-                    return;
-                }
-                likePhoto();
-            }
-        });
 
-        buttonDown.setOnClickListener(new View.OnClickListener() {
+        button.setSelected(mPhoto.getLikedByUser());
+        button.setText(mPhoto.getLikes().toString());
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (mPhoto.getLikedByUser()!=true){
-                    return;
+                    likePhoto();
                 }
-                dislikePhoto();
+                else {
+                    dislikePhoto();
+                }
             }
         });
+
+
 
         return v;
     }
@@ -103,6 +104,9 @@ public class PhotoFragment  extends Fragment{
                 if (response.isSuccessful()) {
                     Toast.makeText(getActivity(), "Thank you!", Toast.LENGTH_SHORT).show();
                     mPhoto.setLikedByUser(true);
+                    mPhoto.setLikes(mPhoto.getLikes()+1);
+                    button.setText(mPhoto.getLikes().toString());
+                    button.setSelected(mPhoto.getLikedByUser());
                 }
             }
 
@@ -122,6 +126,9 @@ public class PhotoFragment  extends Fragment{
                 if (response.isSuccessful()) {
                     Toast.makeText(getActivity(), "Disliked!", Toast.LENGTH_SHORT).show();
                     mPhoto.setLikedByUser(false);
+                    mPhoto.setLikes(mPhoto.getLikes()-1);
+                    button.setText(mPhoto.getLikes().toString());
+                    button.setSelected(mPhoto.getLikedByUser());
                 }
             }
 
